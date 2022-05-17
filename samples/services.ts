@@ -13,12 +13,12 @@ import {
 import { validate } from '../src/services/validation'
 
 const config: IAzureConfig = {
-  pat: 'vgeipg4njfmzzcuoxwb4vja3trwbyafim4x4oww7sbcfbopfb3bq',
-  organizationUrl: 'https://dev.azure.com/gianlucamangiapelo',
-  projectId: '3cf7dbc9-cb1e-4240-93f2-9a5960ab3945',
+  pat: '{Your Azure Devops personal access token}',
+  organizationUrl: 'https://dev.azure.com/{organizationName}',
+  projectId: '{Your Azure Devops Project id}',
   planId: 12,
   suiteId: 14,
-  runName: 'runName',
+  runName: '{Name that is assigned to the test Run}',
 }
 ;(async (config: IAzureConfig) => {
   if (!validate(config)) {
