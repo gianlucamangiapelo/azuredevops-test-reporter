@@ -35,6 +35,8 @@ jobs:
         run: npm install
       - name: Build
         run: npm run build
+      - name: Add npm scope
+        run: npm run addscope
       - name: Publish to npm
         run: npm publish --access public
         env:
@@ -45,8 +47,6 @@ jobs:
           node-version: '14.x'
           registry-url: 'https://npm.pkg.github.com'
           scope: '@gmangiapelo'
-      - name: Add npm scope
-        run: npm run addscope
       - name: Publish to GitHub Packages
         run: npm publish
         env:
