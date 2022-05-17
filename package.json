@@ -29,17 +29,14 @@
     "dist"
   ],
   "keywords": [
-    "example",
+    "azure Devops",
+    "test",
+    "test plan",
+    "reporter",
+    "azure",
     "typescript",
-    "npm",
-    "package",
-    "sample",
-    "boilerplate",
-    "starter",
-    "demo",
     "cjs",
-    "esm",
-    "umd"
+    "esm"
   ],
   "author": "Gianluca Mangiapelo <gianlucamangiapelo.mangiapelog@gmail.com>",
   "license": "MIT",
