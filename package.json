@@ -1,11 +1,9 @@
 {
   "name": "azuredevops-test-reporter",
-  "version": "0.0.1",
-  "description": "",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "umd:main": "dist/umd/index.js",
-  "types": "dist/types/index.d.js",
+  "version": "0.0.2",
+  "description": "Azure DevOps Test Reporter to inject result of automatic test run in Azure DevOps TestPlan",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "postinstall": "husky install",
     "prepublishOnly": "pinst --disable",
@@ -35,7 +33,6 @@
     "reporter",
     "azure",
     "typescript",
-    "cjs",
     "esm"
   ],
   "author": "Gianluca Mangiapelo <gianlucamangiapelo.mangiapelog@gmail.com>",
