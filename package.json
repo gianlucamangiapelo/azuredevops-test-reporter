@@ -1,14 +1,21 @@
 {
   "name": "azuredevops-test-reporter",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Azure DevOps Test Reporter to inject result of automatic test run in Azure DevOps TestPlan",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "types": "dist/esm/index.d.ts",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
   "scripts": {
     "postinstall": "husky install",
     "prepublishOnly": "pinst --disable",
     "postpublish": "pinst --enable",
-    "build": "npm run build:esm",
+    "build": "npm run build:cjs && npm run build:esm",
     "build:cjs": "node tools/cleanup cjs && tsc -p config/tsconfig.cjs.json",
     "build:esm": "node tools/cleanup esm && tsc -p config/tsconfig.esm.json",
     "build:umd": "node tools/cleanup umd && webpack --config config/webpack.config.js",
