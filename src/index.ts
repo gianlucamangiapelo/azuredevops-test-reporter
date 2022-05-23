@@ -10,6 +10,7 @@ import { createConnection } from './services/azure/connection'
 import { setTestResult } from './services/azure/testResults'
 import {
   createTestRun,
+  getLastTestRunId,
   setCompletedRun,
   setInProgressRun,
 } from './services/azure/testRun'
@@ -40,16 +41,19 @@ export class AzureTestPlanReporter implements IAzureTestPlanReporter {
   }
 
   public async sendTestResult(
-    testResult: ITestResult
+    testResult: ITestResult,
+    testRunId?: number
   ): Promise<TestCaseResult[]> {
-    if (!this.testRunId) {
+    if (!this.testRunId || !testRunId) {
       new Error()
     }
+
+    const officialRunId = testRunId ? testRunId : this.testRunId
 
     return await setTestResult(
       this._azureClient,
       this._config,
-      this.testRunId,
+      officialRunId,
       testResult
     )
   }
@@ -61,5 +65,9 @@ export class AzureTestPlanReporter implements IAzureTestPlanReporter {
       this.testRunId
     )
     return testRun
+  }
+
+  public async getCurrentTestRunId(): Promise<number> {
+    return await getLastTestRunId(this._azureClient, this._config)
   }
 }

@@ -7,6 +7,7 @@ import { ITestResult } from './ITestResult'
 export interface IAzureTestPlanReporter {
   init(): Promise<void>
   starTestRun(): Promise<TestRun>
+  getCurrentTestRunId(): Promise<number>
   sendTestResult(testResult: ITestResult): Promise<TestCaseResult[]>
   stopTestRun(): Promise<TestRun>
 }

@@ -50,3 +50,24 @@ export async function setCompletedRun(
     testRunId
   )
 }
+
+export async function getLastTestRunId(
+  azureClient: ITestApi,
+  azureConfig: IAzureConfig
+): Promise<number> {
+  const testRun = await azureClient.getTestRuns(
+    azureConfig.projectId,
+    undefined,
+    undefined,
+    undefined,
+    azureConfig.planId,
+    undefined,
+    undefined,
+    undefined
+  )
+  if (!testRun || !testRun.length) {
+    throw new Error()
+  }
+
+  return testRun[testRun.length - 1].id
+}
