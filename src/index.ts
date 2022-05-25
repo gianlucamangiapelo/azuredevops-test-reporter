@@ -15,10 +15,12 @@ import {
   setInProgressRun,
 } from './services/azure/testRun'
 import { validate } from './services/validation'
+import axios, { AxiosInstance } from 'axios'
 
 export class AzureTestPlanReporter implements IAzureTestPlanReporter {
   private _config: IAzureConfig
   private _azureClient!: ITestApi
+  private _axiosClient: AxiosInstance
   public testRunId!: number
 
   constructor(config: IAzureConfig) {
@@ -27,6 +29,17 @@ export class AzureTestPlanReporter implements IAzureTestPlanReporter {
     }
 
     this._config = config
+
+    this._axiosClient = axios.create({
+      headers: {
+        Authorization:
+          'Basic ' + Buffer.from(':' + this._config.pat).toString('base64'),
+      },
+      params: {
+        Authorization: 'Basic ' + this._config.pat,
+      },
+      baseURL: `${this._config.organizationUrl}/${this._config.projectId}/_apis`,
+    })
   }
 
   public async init(): Promise<void> {
@@ -34,7 +47,11 @@ export class AzureTestPlanReporter implements IAzureTestPlanReporter {
   }
 
   public async starTestRun(): Promise<TestRun> {
-    const testRun = await createTestRun(this._azureClient, this._config)
+    const testRun = await createTestRun(
+      this._azureClient,
+      this._axiosClient,
+      this._config
+    )
     setInProgressRun(this._azureClient, this._config, testRun.id)
     this.testRunId = testRun.id
     return testRun

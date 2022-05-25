@@ -1,24 +1,25 @@
-import { ITestApi } from 'azure-devops-node-api/TestApi'
+import { AxiosInstance } from 'axios'
 import { IAzureConfig } from '../../interfaces/IAzureConfig'
 
 export async function getPoints(
-  azureClient: ITestApi,
+  axiosClient: AxiosInstance,
   config: IAzureConfig
 ): Promise<number[]> {
-  if (!Object.keys(azureClient).length) {
+  if (!axiosClient) {
     return new Promise(() => {
       throw new Error('Missing valid Azure Devops client')
     })
   }
-  const testCasesPoints = await azureClient.getPoints(
-    config.projectId,
-    config.planId,
-    config.suiteId
+
+  const testCasesPoints = await axiosClient.get(
+    `/testplan/Plans/${config.planId}/Suites/${config.suiteId}/TestCase?witFields=System.Id&excludeFlags=0&isRecursive=true`
   )
 
-  const testCasePointIds = testCasesPoints.map((val) => {
-    return val.id
-  })
+  const testCasePointIds: number[] = testCasesPoints.data.value.map(
+    (val: { pointAssignments: { id: number }[] }) => {
+      return val.pointAssignments[0].id
+    }
+  )
 
   return testCasePointIds
 }

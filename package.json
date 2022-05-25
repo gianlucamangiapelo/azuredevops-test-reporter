@@ -1,6 +1,6 @@
 {
   "name": "azuredevops-test-reporter",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Azure DevOps Test Reporter to inject result of automatic test run in Azure DevOps TestPlan",
   "types": "dist/esm/index.d.ts",
   "main": "dist/cjs/index.js",
@@ -53,6 +53,7 @@
     "url": "https://github.com/gianlucamangiapelo/azuredevops-test-reporter/issues"
   },
   "dependencies": {
+    "axios": "^0.27.2",
     "azure-devops-node-api": "^11.1.1",
     "validate": "^5.2.0"
   },

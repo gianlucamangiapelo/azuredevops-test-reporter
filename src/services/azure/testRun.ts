@@ -3,9 +3,11 @@ import { IAzureConfig } from '../../interfaces/IAzureConfig'
 import { RunCreateModel } from '../../model/runCreateModel'
 import { getPoints } from './testCasePoints'
 import * as TestInterfaces from 'azure-devops-node-api/interfaces/TestInterfaces'
+import { AxiosInstance } from 'axios'
 
 export async function createTestRun(
   azureClient: ITestApi,
+  axiosClient: AxiosInstance,
   azureConfig: IAzureConfig
 ): Promise<TestInterfaces.TestRun> {
   const plan = {
@@ -13,7 +15,7 @@ export async function createTestRun(
     name: azureConfig.runName,
   }
 
-  const pointIds = await getPoints(azureClient, azureConfig)
+  const pointIds = await getPoints(axiosClient, azureConfig)
   const testRunModel = new RunCreateModel(azureConfig.runName, plan, pointIds)
 
   return azureClient.createTestRun(testRunModel, azureConfig.projectId)
