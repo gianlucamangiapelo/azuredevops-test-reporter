@@ -5,4 +5,5 @@ export interface IAzureConfig {
   planId: number
   suiteId: number
   runName: string
+  caseIdRegex?: string
 }

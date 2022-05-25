@@ -26,4 +26,8 @@ export const azureConfig = new Schema({
     type: String,
     required: false,
   },
+  caseIdRegex: {
+    type: String,
+    required: false,
+  },
 })
