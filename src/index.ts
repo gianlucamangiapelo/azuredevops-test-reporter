@@ -24,8 +24,8 @@ export class AzureTestPlanReporter implements IAzureTestPlanReporter {
   public testRunId!: number
 
   constructor(config: IAzureConfig) {
-    if (!validate(config)) {
-      new Error('Invalid Azure Test plan configuration')
+    if (!config || !validate(config)) {
+      throw new Error('Invalid Azure Test plan configuration')
     }
 
     this._config = config
