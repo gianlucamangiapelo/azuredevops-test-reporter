@@ -29,12 +29,14 @@ export async function setTestResult(
       if (test.outcome !== 'Failed') {
         test.outcome = testResult.result
       }
-      
+
       // Adds result of failed test to comment
       if (testResult.result === 'Failed') {
-        test.comment = `${test.comment !== undefined ? test.comment : ''}${testResult.message} `.substring(0,1000);
-}
-      
+        test.comment = `${test.comment !== undefined ? test.comment : ''}${
+          testResult.message
+        } `.substring(0, 1000)
+      }
+
       test.state = 'Completed'
       return test
     }
