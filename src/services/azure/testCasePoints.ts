@@ -20,8 +20,12 @@ export async function getPoints(
 
     for (let i = 0; i < testCasesPoints.data.value.length; i++) {
       const pointAssignment = testCasesPoints.data.value[i].pointAssignments
+
       for (let j = 0; j < pointAssignment.length; j++) {
-        if (pointAssignment[j].configurationName === config.configurationName) {
+        if (
+          config.configurationName === undefined ||
+          pointAssignment[j].configurationName === config.configurationName
+        ) {
           testCasePointIds.push(pointAssignment[j].id)
         }
       }
