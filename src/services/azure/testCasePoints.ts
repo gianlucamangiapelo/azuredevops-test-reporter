@@ -11,15 +11,24 @@ export async function getPoints(
     })
   }
 
-  const testCasesPoints = await axiosClient.get(
-    `/testplan/Plans/${config.planId}/Suites/${config.suiteId}/TestCase?witFields=System.Id&excludeFlags=0&isRecursive=true`
-  )
+  let continuiationToken = ''
+  let testCasePointIds: number[] = []
+  do {
+    const testCasesPoints = await axiosClient.get(
+      `/testplan/Plans/${config.planId}/Suites/${config.suiteId}/TestCase?witFields=System.Id&continuationToken=${continuiationToken}&excludeFlags=0&isRecursive=true`
+    )
 
-  const testCasePointIds: number[] = testCasesPoints.data.value.map(
-    (val: { pointAssignments: { id: number }[] }) => {
-      return val.pointAssignments[0].id
-    }
-  )
+    testCasePointIds = [
+      ...testCasePointIds,
+      ...testCasesPoints.data.value.map(
+        (val: { pointAssignments: { id: number }[] }) => {
+          return val.pointAssignments[0].id
+        }
+      ),
+    ]
+
+    continuiationToken = testCasesPoints.headers['x-ms-continuationtoken']
+  } while (continuiationToken !== undefined)
 
   return testCasePointIds
 }
