@@ -18,14 +18,14 @@ export async function getPoints(
       `/testplan/Plans/${config.planId}/Suites/${config.suiteId}/TestCase?witFields=System.Id&continuationToken=${continuiationToken}&excludeFlags=0&isRecursive=true`
     )
 
-    testCasePointIds = [
-      ...testCasePointIds,
-      ...testCasesPoints.data.value.map(
-        (val: { pointAssignments: { id: number }[] }) => {
-          return val.pointAssignments[0].id
+    for (let i = 0; i < testCasesPoints.data.value.length; i++) {
+      const pointAssignment = testCasesPoints.data.value[i].pointAssignments
+      for (let j = 0; j < pointAssignment.length; j++) {
+        if (pointAssignment[j].configurationName === config.configurationName) {
+          testCasePointIds.push(pointAssignment[j].id)
         }
-      ),
-    ]
+      }
+    }
 
     continuiationToken = testCasesPoints.headers['x-ms-continuationtoken']
   } while (continuiationToken !== undefined)
