@@ -52,7 +52,7 @@ export class AzureTestPlanReporter implements IAzureTestPlanReporter {
       this._axiosClient,
       this._config
     )
-    setInProgressRun(this._azureClient, this._config, testRun.id)
+    //await setInProgressRun(this._azureClient, this._config, testRun.id)
     this.testRunId = testRun.id
     return testRun
   }
