@@ -3,7 +3,8 @@ import { IAzureConfig } from '../../interfaces/IAzureConfig'
 
 export async function getPoints(
   axiosClient: AxiosInstance,
-  config: IAzureConfig
+  config: IAzureConfig,
+  testResultIds?: number[]
 ): Promise<number[]> {
   if (!axiosClient) {
     return new Promise(() => {
@@ -19,14 +20,17 @@ export async function getPoints(
     )
 
     for (let i = 0; i < testCasesPoints.data.value.length; i++) {
-      const pointAssignment = testCasesPoints.data.value[i].pointAssignments
+      const workItemId = testCasesPoints.data.value[i].workItem.id
+      const pointAssignments = testCasesPoints.data.value[i].pointAssignments
 
-      for (let j = 0; j < pointAssignment.length; j++) {
-        if (
-          config.configurationName === undefined ||
-          pointAssignment[j].configurationName === config.configurationName
-        ) {
-          testCasePointIds.push(pointAssignment[j].id)
+      if (testResultIds !== undefined && testResultIds.includes(workItemId)) {
+        for (let j = 0; j < pointAssignments.length; j++) {
+          if (
+            config.configurationName === undefined ||
+            pointAssignments[j].configurationName === config.configurationName
+          ) {
+            testCasePointIds.push(pointAssignments[j].id)
+          }
         }
       }
     }

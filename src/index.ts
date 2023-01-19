@@ -46,11 +46,12 @@ export class AzureTestPlanReporter implements IAzureTestPlanReporter {
     this._azureClient = await createConnection(this._config)
   }
 
-  public async starTestRun(): Promise<TestRun> {
+  public async starTestRun(testResultIds?: number[]): Promise<TestRun> {
     const testRun = await createTestRun(
       this._azureClient,
       this._axiosClient,
-      this._config
+      this._config,
+      testResultIds
     )
     //await setInProgressRun(this._azureClient, this._config, testRun.id)
     this.testRunId = testRun.id
