@@ -25,8 +25,18 @@ export async function setTestResult(
 
   const updatedResult = testsInRun.filter((test) => {
     if (test.testCase?.id === testResult.testCaseId) {
-      test.outcome = testResult.result
-      test.comment = testResult.message
+      // Failed result is dominant and will not be overwritten by passed result of other test
+      if (test.outcome !== 'Failed') {
+        test.outcome = testResult.result
+      }
+
+      // Adds result of failed test to comment
+      if (testResult.result === 'Failed') {
+        test.comment = `${test.comment !== undefined ? test.comment : ''}${
+          testResult.message
+        } `.substring(0, 1000)
+      }
+
       test.state = 'Completed'
       return test
     }

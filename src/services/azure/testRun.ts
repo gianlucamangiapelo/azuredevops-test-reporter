@@ -8,14 +8,16 @@ import { AxiosInstance } from 'axios'
 export async function createTestRun(
   azureClient: ITestApi,
   axiosClient: AxiosInstance,
-  azureConfig: IAzureConfig
+  azureConfig: IAzureConfig,
+  testResultIds?: number[]
 ): Promise<TestInterfaces.TestRun> {
   const plan = {
     id: `${azureConfig.planId}`,
     name: azureConfig.runName,
   }
 
-  const pointIds = await getPoints(axiosClient, azureConfig)
+  let pointIds = await getPoints(axiosClient, azureConfig, testResultIds)
+
   const testRunModel = new RunCreateModel(azureConfig.runName, plan, pointIds)
 
   return azureClient.createTestRun(testRunModel, azureConfig.projectId)

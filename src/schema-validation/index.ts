@@ -30,4 +30,8 @@ export const azureConfig = new Schema({
     type: String,
     required: false,
   },
+  configurationName: {
+    type: String,
+    required: false,
+  },
 })
