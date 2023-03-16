@@ -1,6 +1,6 @@
 {
   "name": "azuredevops-test-reporter",
-  "version": "0.0.6",
+  "version": "0.0.9",
   "description": "Azure DevOps Test Reporter to inject result of automatic test run in Azure DevOps TestPlan",
   "types": "dist/esm/index.d.ts",
   "main": "dist/cjs/index.js",
@@ -25,7 +25,7 @@
     "test": "jest --no-cache --runInBand",
     "test:cov": "jest --coverage --no-cache --runInBand",
     "addscope": "node tools/packagejson name @gmangiapelo/azuredevops-test-reporter",
-    "sample": "node tools/cleanup cjs && tsc -p config/tsconfig.cjs.json && node dist/cjs/samples/test-plan-reporter.js"
+    "sample": "npx ts-node samples/test-plan-reporter.ts "
   },
   "publishConfig": {
     "access": "public"
