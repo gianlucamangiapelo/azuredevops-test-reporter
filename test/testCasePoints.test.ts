@@ -28,7 +28,8 @@ describe('Validate http call to retrieve the testCase in the test Run', () => {
                 url: "",
                 workItemProperties: []
               }]
-            }
+            },
+            headers:{}
           })
         })
       })
@@ -53,7 +54,8 @@ describe('Validate http call to retrieve the testCase in the test Run', () => {
                 configuration: {},
                 id: 2,
               }]
-            }
+            },
+            headers:{}
           })
         })
       })
