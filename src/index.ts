@@ -7,7 +7,7 @@ import { IAzureConfig } from './interfaces/IAzureConfig'
 import { IAzureTestPlanReporter } from './interfaces/IAzureTestPlanReporter'
 import { ITestResult } from './interfaces/ITestResult'
 import { createConnection } from './services/azure/connection'
-import { setTestResult } from './services/azure/testResults'
+import { setNotExecutedTest, setTestResult } from './services/azure/testResults'
 import {
   createTestRun,
   getLastTestRunId,
@@ -76,6 +76,7 @@ export class AzureTestPlanReporter implements IAzureTestPlanReporter {
   }
 
   public async stopTestRun(): Promise<TestRun> {
+    await setNotExecutedTest(this._azureClient, this._config, this.testRunId)
     const testRun = await setCompletedRun(
       this._azureClient,
       this._config,

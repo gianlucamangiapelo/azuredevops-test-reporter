@@ -45,3 +45,36 @@ export async function setTestResult(
     testRunId
   )
 }
+
+export async function setNotExecutedTest(
+  azureClient: ITestApi,
+  azureConfig: IAzureConfig,
+  testRunId: number
+): Promise<TestInterfaces.TestCaseResult[]> {
+  if (!azureClient || !Object.keys(azureClient).length) {
+    throw new Error('Missing valid Azure Devops client')
+  }
+
+  if (!testRunId) {
+    throw new Error(`no testRunId provided`)
+  }
+  const testsInRun = await _getTestsInRun(azureClient, azureConfig, testRunId)
+
+  if (!testsInRun.length) {
+    throw new Error(`no tests founded in testRun with id ${testRunId}`)
+  }
+
+  const updatedResult = testsInRun.filter((test) => {
+    if (!test.outcome) {
+      test.outcome = 'NotApplicable'
+      test.state = 'Completed'
+    }
+    return test
+  })
+
+  return azureClient.updateTestResults(
+    updatedResult,
+    azureConfig.projectId,
+    testRunId
+  )
+}
