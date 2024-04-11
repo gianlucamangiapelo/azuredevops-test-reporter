@@ -1,25 +1,29 @@
-/* eslint-disable */
-const fs = require('fs')
-const Path = require('path')
-const fileName = '../package.json'
-const file = require(fileName)
-/* eslint-enable */
+import { fileURLToPath } from 'url'
+import path from 'path'
+import { writeFile } from 'fs/promises'
+import file from '../package.json' assert { type: 'json' }
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 const args = process.argv.slice(2)
 
-for (let i = 0, l = args.length; i < l; i++) {
-  if (i % 2 === 0) {
-    file[args[i]] = args[i + 1]
+const updateJSON = async (filePath, args) => {
+  const fileContent = { ...file }
+  for (let i = 0, l = args.length; i < l; i += 2) {
+    if (args[i + 1] !== undefined) {
+      fileContent[args[i]] = args[i + 1]
+    }
+  }
+  try {
+    await writeFile(
+      path.join(__dirname, filePath),
+      JSON.stringify(fileContent, null, 2)
+    )
+    console.log('Writing to ' + filePath)
+  } catch (err) {
+    console.error(err)
   }
 }
 
-fs.writeFile(
-  Path.join(__dirname, fileName),
-  JSON.stringify(file, null, 2),
-  (err) => {
-    if (err) {
-      return console.log(err)
-    }
-    console.log('Writing to ' + fileName)
-  }
-)
+updateJSON('../package.json', args)

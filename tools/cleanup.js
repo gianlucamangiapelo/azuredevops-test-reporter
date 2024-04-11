@@ -1,29 +1,31 @@
-/* eslint-disable */
-const fs = require('fs')
-const Path = require('path')
-/* eslint-enable */
+import { existsSync, readdirSync, lstatSync, unlinkSync, rmdirSync } from 'fs'
+import { join, dirname } from 'path'
+import { fileURLToPath } from 'url'
 
-const deleteFolderRecursive = (path) => {
-  if (fs.existsSync(path)) {
-    fs.readdirSync(path).forEach((file) => {
-      const curPath = Path.join(path, file)
-      if (fs.lstatSync(curPath).isDirectory()) {
-        deleteFolderRecursive(curPath)
-      } else {
-        fs.unlinkSync(curPath)
-      }
-    })
-    fs.rmdirSync(path)
-  }
-}
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 const folder = process.argv.slice(2)[0]
 
+const deleteFolderRecursive = (path) => {
+  if (existsSync(path)) {
+    readdirSync(path).forEach((file) => {
+      const curPath = join(path, file)
+      if (lstatSync(curPath).isDirectory()) {
+        deleteFolderRecursive(curPath)
+      } else {
+        unlinkSync(curPath)
+      }
+    })
+    rmdirSync(path)
+  }
+}
+
 if (folder) {
-  deleteFolderRecursive(Path.join(__dirname, '../dist', folder))
+  deleteFolderRecursive(join(__dirname, '../dist', folder))
 } else {
-  deleteFolderRecursive(Path.join(__dirname, '../dist/cjs'))
-  deleteFolderRecursive(Path.join(__dirname, '../dist/esm'))
-  deleteFolderRecursive(Path.join(__dirname, '../dist/umd'))
-  deleteFolderRecursive(Path.join(__dirname, '../dist/types'))
+  deleteFolderRecursive(join(__dirname, '../dist/cjs'))
+  deleteFolderRecursive(join(__dirname, '../dist/esm'))
+  deleteFolderRecursive(join(__dirname, '../dist/umd'))
+  deleteFolderRecursive(join(__dirname, '../dist/types'))
 }

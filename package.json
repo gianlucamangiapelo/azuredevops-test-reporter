@@ -2,6 +2,7 @@
   "name": "azuredevops-test-reporter",
   "version": "0.0.9",
   "description": "Azure DevOps Test Reporter to inject result of automatic test run in Azure DevOps TestPlan",
+  "type": "module",
   "types": "dist/esm/index.d.ts",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -15,17 +16,12 @@
     "postinstall": "husky install",
     "prepublishOnly": "pinst --disable",
     "postpublish": "pinst --enable",
-    "build": "npm run build:cjs && npm run build:esm",
-    "build:cjs": "node tools/cleanup cjs && tsc -p config/tsconfig.cjs.json",
-    "build:esm": "node tools/cleanup esm && tsc -p config/tsconfig.esm.json",
-    "build:umd": "node tools/cleanup umd && webpack --config config/webpack.config.js",
-    "build:types": "node tools/cleanup types && tsc -p config/tsconfig.types.json",
+    "build": "rollup -c",
     "clean": "node tools/cleanup",
     "package": "npm run build && npm pack",
     "test": "jest --no-cache --runInBand",
     "test:cov": "jest --coverage --no-cache --runInBand",
-    "addscope": "node tools/packagejson name @gmangiapelo/azuredevops-test-reporter",
-    "sample": "npx ts-node samples/test-plan-reporter.ts "
+    "addscope": "node tools/packagejson name @gmangiapelo/azuredevops-test-reporter"
   },
   "publishConfig": {
     "access": "public"
@@ -58,8 +54,10 @@
     "validate": "^5.2.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^13.1.0",
-    "@commitlint/config-conventional": "^13.1.0",
+    "@commitlint/cli": "^19.1.0",
+    "@commitlint/config-conventional": "^19.1.0",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-typescript": "^11.1.6",
     "@types/jest": "^27.0.1",
     "@typescript-eslint/eslint-plugin": "^4.31.1",
     "@typescript-eslint/parser": "^4.31.1",
@@ -70,10 +68,9 @@
     "jest": "^27.2.0",
     "pinst": "^2.1.6",
     "prettier": "^2.4.0",
+    "rollup": "^4.14.1",
     "ts-jest": "^27.0.5",
     "ts-loader": "^9.2.5",
-    "typescript": "^4.4.3",
-    "webpack": "^5.52.1",
-    "webpack-cli": "^4.8.0"
+    "typescript": "^4.4.3"
   }
 }
