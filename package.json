@@ -1,6 +1,6 @@
 {
   "name": "azuredevops-test-reporter",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "description": "Azure DevOps Test Reporter to inject result of automatic test run in Azure DevOps TestPlan",
   "types": "dist/esm/index.d.ts",
   "main": "dist/cjs/index.js",
@@ -53,27 +53,31 @@
     "url": "https://github.com/gianlucamangiapelo/azuredevops-test-reporter/issues"
   },
   "dependencies": {
-    "axios": "^0.27.2",
-    "azure-devops-node-api": "^11.1.1",
-    "validate": "^5.2.0"
+    "axios": "1.8.4",
+    "azure-devops-node-api": "14.1.0",
+    "validate": "5.2.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^13.1.0",
-    "@commitlint/config-conventional": "^13.1.0",
-    "@types/jest": "^27.0.1",
-    "@typescript-eslint/eslint-plugin": "^4.31.1",
-    "@typescript-eslint/parser": "^4.31.1",
-    "eslint": "^7.32.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "husky": "^7.0.2",
-    "jest": "^27.2.0",
-    "pinst": "^2.1.6",
-    "prettier": "^2.4.0",
-    "ts-jest": "^27.0.5",
-    "ts-loader": "^9.2.5",
-    "typescript": "^4.4.3",
-    "webpack": "^5.52.1",
-    "webpack-cli": "^4.8.0"
+    "@commitlint/cli": "19.8.0",
+    "@commitlint/config-conventional": "19.8.0",
+    "@types/jest": "29.5.14",
+    "@typescript-eslint/eslint-plugin": "8.29.1",
+    "@typescript-eslint/parser": "8.29.1",
+    "eslint": "9.24.0",
+    "eslint-config-prettier": "10.1.2",
+    "eslint-plugin-prettier": "5.2.6",
+    "husky": "9.1.7",
+    "jest": "29.7.0",
+    "pinst": "3.0.0",
+    "prettier": "3.5.3",
+    "ts-jest": "29.3.1",
+    "ts-loader": "9.5.2",
+    "ts-node": "^10.9.2",
+    "typescript": "5.8.3",
+    "webpack": "5.99.5",
+    "webpack-cli": "6.0.1"
+  },
+  "volta": {
+    "node": "22.14.0"
   }
 }
