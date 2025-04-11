@@ -4,7 +4,7 @@ export const azureConfig = new Schema({
   pat: {
     type: String,
     required: true,
-    length: 52,
+    length: 84,
   },
   organizationUrl: {
     type: String,

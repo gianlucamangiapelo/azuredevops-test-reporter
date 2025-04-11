@@ -23,7 +23,7 @@ describe("Validate Azure DevOps config provided", () => {
 
   it("validate should success if are present all the required params", ()=>{
     const completeConf = {
-      pat: "vgrdpg4njfmzzcuoxwb4vja3trwbyafim4x4oww7sbcfbopfb3bq",
+      pat: "abcdefghijklmnopqrstuvwxyz012345679ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnoAZDOabcd",
       organizationUrl: "{Organization Name}",
       projectId: "11",
       planId: 1,

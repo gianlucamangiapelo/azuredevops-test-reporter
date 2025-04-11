@@ -9,9 +9,9 @@ const config: IAzureConfig = {
   pat: '{Your Azure Devops personal access token}',
   organizationUrl: 'https://dev.azure.com/{organizationName}',
   projectId: '{Your Azure Devops Project id}',
-  planId: 12,
-  suiteId: 14,
-  runName: '{Name that is assigned to the test Run}',
+  planId: 1,
+  suiteId: 2,
+  runName: '{Name that is assigned to the test Run}'
 }
 ;(async (config: IAzureConfig) => {
   const reporter = new AzureTestPlanReporter(config)
@@ -34,7 +34,7 @@ const config: IAzureConfig = {
   //Simulate execution end coming from testRunner framework
 
   const testResult: ITestResult = {
-    testCaseId: '15',
+    testCaseId: '3',
     result: 'Passed',
     message: '',
   }
@@ -43,7 +43,7 @@ const config: IAzureConfig = {
 
   //Simulate failing execution end coming from testRunner framework
   const testResult1: ITestResult = {
-    testCaseId: '16',
+    testCaseId: '4',
     result: 'Failed',
     message: 'Is a failed test',
   }
