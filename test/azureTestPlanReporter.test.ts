@@ -1,13 +1,8 @@
-import { AxiosInstance } from 'axios'
-import { ITestApi } from 'azure-devops-node-api/TestApi'
 import { IAzureConfig } from '../src/interfaces/IAzureConfig'
 import { AzureTestPlanReporter } from '../src/index'
 
-
-
-
 const validAzureConfig: IAzureConfig = {
-  pat: 'v3e3pg4njfmzzcuoxwb4vja3trwbyafim4x4oww7sbcfbopfb3bq',
+  pat: 'abcdefghijklmnopqrstuvwxyz012345679ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnoAZDOabcd',
   organizationUrl: 'https://dev.azure.com/organization',
   projectId: '3cf7dbc9-cb1e-4240-93f2-9a5960ab3945',
   planId: 12,
